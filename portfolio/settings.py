@@ -41,14 +41,14 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",  
+    "django.middleware.common.CommonMiddleware",  
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 ROOT_URLCONF = 'portfolio.urls'
@@ -143,6 +143,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",  # Vite default port
 ]
 
+
+CORS_ALLOW_CREDENTIALS = True
 # Or for development only, you can allow all origins:
 
 # Email configuration (for sending emails)
