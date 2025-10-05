@@ -20,9 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-ci4og6^e#d_!88w&h1(n^n$*4wo&8^v%f-oq(akdab4tkp)exw')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["portfolio-backend.onrender.com"]
+
+ALLOWED_HOSTS = ["portfolio-backend-9gt1.onrender.com"]
 
 
 # Application definition
