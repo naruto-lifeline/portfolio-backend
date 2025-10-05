@@ -15,7 +15,7 @@ def contact_submission(request):
     """
     
     if request.method == 'GET':
-        # Return API information for testing
+        # Return JSON info instead of HTML
         return Response({
             'message': '✅ Contact API is working!',
             'instruction': 'Send POST request with: name, email, message',
@@ -25,18 +25,16 @@ def contact_submission(request):
                 'email': 'john@example.com',
                 'message': 'Hello, I would like to connect with you!'
             }
-        })
+        }, status=status.HTTP_200_OK)
     
     elif request.method == 'POST':
-        # Validate and process the contact form data
         serializer = ContactSubmissionSerializer(data=request.data)
         
         if serializer.is_valid():
-            # Save to database
             contact = serializer.save()
             
             try:
-                # Email to you (portfolio owner)
+                # Email to portfolio owner
                 send_mail(
                     subject=f'📧 New Contact from {contact.name}',
                     message=f"""
@@ -71,7 +69,6 @@ Phone: +91 7095885614
                     fail_silently=False,
                 )
                 
-                # Mark as processed successfully
                 contact.is_processed = True
                 contact.save()
                 
@@ -84,11 +81,8 @@ Phone: +91 7095885614
                 )
                 
             except Exception as e:
-                # Save the submission but mark as not processed due to email failure
                 contact.is_processed = False
                 contact.save()
-                
-                # Log the error for debugging
                 print(f"Email sending failed: {str(e)}")
                 
                 return Response(
@@ -99,7 +93,6 @@ Phone: +91 7095885614
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
         else:
-            # Return validation errors
             return Response(
                 {
                     'error': 'Invalid form data. Please check your inputs.',
@@ -107,3 +100,11 @@ Phone: +91 7095885614
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+
+# Optional: catch-all API view to avoid HTML/500 errors on unexpected GET
+@api_view(['GET'])
+def api_root(request):
+    return Response({
+        'message': 'Welcome to the Portfolio API. Use /contact/submit/ for POST requests.'
+    }, status=status.HTTP_200_OK)
