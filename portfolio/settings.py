@@ -136,7 +136,7 @@ REST_FRAMEWORK = {
 
 # CORS configuration - ADD VITE PORTS
 CORS_ALLOWED_ORIGINS = [
-    "https://chabhiram-chintalapudi.netlify.app"
+    "https://chabhiram-chintalapudi.netlify.app",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://localhost:5173",  # Vite default port
