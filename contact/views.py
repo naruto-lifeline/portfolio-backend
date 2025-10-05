@@ -29,7 +29,7 @@ def contact_submission(request):
                 contact = serializer.save()
 
                 try:
-                    # Send email to portfolio owner
+                    # Send email to portfolio owner using SendGrid
                     send_mail(
                         subject=f'📧 New Contact from {contact.name}',
                         message=f"""
@@ -41,7 +41,7 @@ Message:
 Submitted at: {contact.submitted_at}
                         """.strip(),
                         from_email=settings.DEFAULT_FROM_EMAIL,
-                        recipient_list=[settings.EMAIL_HOST_USER],
+                        recipient_list=[settings.DEFAULT_FROM_EMAIL],
                         fail_silently=False,
                     )
 
@@ -79,10 +79,9 @@ Phone: +91 7095885614
                     contact.is_processed = False
                     contact.save()
                     print("Email sending failed:", traceback.format_exc())
-
                     return Response(
                         {
-                            'error': 'Message was received but email delivery failed.',
+                            'error': 'Message received but email delivery failed.',
                             'status': 'warning'
                         },
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -98,7 +97,6 @@ Phone: +91 7095885614
                 )
 
     except Exception as e:
-        # Catch any unexpected server error and return JSON
         print("Unhandled exception:", traceback.format_exc())
         return Response(
             {
