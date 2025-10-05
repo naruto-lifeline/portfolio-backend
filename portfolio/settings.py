@@ -136,6 +136,7 @@ REST_FRAMEWORK = {
 
 # CORS configuration - ADD VITE PORTS
 CORS_ALLOWED_ORIGINS = [
+    "https://chabhiram-chintalapudi.netlify.app"
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://localhost:5173",  # Vite default port
@@ -150,5 +151,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'chabhiram2001@gmail.com')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')  # REMOVE HARDCODED PASSWORD!
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')  
 DEFAULT_FROM_EMAIL = 'chabhiram2001@gmail.com'
