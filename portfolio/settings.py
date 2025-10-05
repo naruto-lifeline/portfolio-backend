@@ -6,7 +6,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env
+# Load environment variables from .env (only for local/dev)
 load_dotenv()
 
 # Paths
@@ -111,9 +111,13 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ALLOW_CREDENTIALS = True
 
-# Anymail + SendGrid
+# Email configuration
+EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"  # For production with SendGrid
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "chabhiram2001@gmail.com")
 ANYMAIL = {
     "SENDGRID_API_KEY": os.getenv("SENDGRID_API_KEY"),
 }
-EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "chabhiram2001@gmail.com")
+
+# Optional fallback for local development (console backend)
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
