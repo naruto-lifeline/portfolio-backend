@@ -142,7 +142,6 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 # Or for development only, you can allow all origins:
-CORS_ALLOW_ALL_ORIGINS = True  # Remove in production
 
 # Email configuration (for sending emails)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
